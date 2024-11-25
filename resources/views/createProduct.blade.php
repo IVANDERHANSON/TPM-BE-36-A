@@ -9,7 +9,7 @@
   <body>
     <x-nav-bar />
 
-    <form action="{{ route('createProduct') }}" method="POST">
+    <form action="{{ route('createProduct') }}" method="POST" enctype="multipart/form-data">
       @csrf
 
       <label for="ProductName">Product Name</label><br>
@@ -23,6 +23,20 @@
       @error('ProductPrice')
           <p style="color: red;">{{ $message }}</p>
       @enderror
+
+      <label for="ProductImage">Product Image</label><br>
+      <input id="ProductImage" type="file" name="ProductImage" value="{{ old("ProductImage") }}"><br>
+      @error('ProductImage')
+          <p style="color: red;">{{ $message }}</p>
+      @enderror
+
+      <br>
+      <label for="">Category</label>
+      <select name="CategoryId">
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->CategoryName }}</option>
+        @endforeach
+      </select><br><br>
 
       <button type="submit">Submit</button>
     </form>
