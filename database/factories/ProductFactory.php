@@ -15,11 +15,6 @@ class ProductFactory extends Factory
      * @return array<string, mixed>
      */
 
-    protected static function newFactory()
-    {
-        return ProductFactory::new();
-    }
-
     public function definition(): array
     {
         return [

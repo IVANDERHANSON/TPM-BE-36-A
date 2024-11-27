@@ -15,7 +15,13 @@
         <div class="card-body">
           <h5 class="card-title">{{ $product->id.'. '.$product->ProductName }}</h5>
           <p class="card-text">Product Price: {{ $product->ProductPrice }}</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <p class="card-text">Category Name: {{ $product->category->CategoryName }}</p>
+          <a href="{{ route('getEditProductPage', $product->id) }}" class="btn btn-primary">Edit</a>
+
+          <form action="{{ route('deleteProduct', $product->id) }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
         </div>
       </div>
     @empty
@@ -23,6 +29,8 @@
         Data is emtpy.
       </div>
     @endforelse
+
+    {{ $products->onEachSide(1)->links() }}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
