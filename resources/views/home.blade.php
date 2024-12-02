@@ -9,6 +9,8 @@
   <body>
     <x-nav-bar />
 
+    {{ Cookie::get('email') }}
+
     @forelse ($products as $product)
       <div class="card" style="width: 18rem;">
         <img src="{{ asset('/storage'.'/'.$product->ProductImage) }}" class="card-img-top" alt="{{ $product->ProductImage }}">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductCollection;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -91,5 +92,20 @@ class ProductController extends Controller
         Storage::delete('/public'.'/'.$product->ProductImage);
         Product::destroy($productId);
         return redirect(route('getHome'));
+    }
+
+    function productsAPI() {
+        $products = Product::all();
+        // if ($products != null) {
+        //     return [
+        //         'data' => $products,
+        //         'message' => 'Get Products Success.'
+        //     ];
+        // } else {
+        //     return [
+        //         'message' => 'Get Products Failed.'
+        //     ];
+        // }
+        return new ProductCollection($products);
     }
 }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthenticationController extends Controller
 {
@@ -47,6 +49,8 @@ class AuthenticationController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            Cookie::queue('email', Auth::user()->email);
+            Log::info(Auth::user()->email.' is login.');
             return redirect('/');
         }
 
@@ -59,6 +63,7 @@ class AuthenticationController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        Cookie::expire('email');
         return redirect('/');
     }
 }
